@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <% include ../partial/head %>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <% include ../partial/navbar %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <% include ../partial/sidebar %>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="col-md-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">User add</h4>
+                  <p class="card-description">Please insert user data </p>
+                  <form class="forms-sample" action="/users/userupdate" method="post" id="myform">
+                    <input type="hidden" name="id" value="<%=user._id%>">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" name="username" id="name" value="<%=user.name%>">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email </label>
+                      <input type="email" class="form-control" name="useremail" id="email" value="<%=user.email%>">
+                    </div>
+                    <div class="form-group">
+                      <label for="pwd">Password</label>
+                      <input type="password" class="form-control" name="pwd" id="pwd">
+                    </div>
+                  <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <% include ../partial/footer %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <% include ../partial/script %>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <!-- End custom js for this page-->
+  </body>
+  <script src="/javascripts/jquery-3.4.1.min.js" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validate.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  $("#myform").validate({
+    rules:{
+      username:{
+        required:true,
+        minlength:10,
+      },
+      useremail:{
+        required:true,
+        emailExt:true,
+      },
+      pwd:{
+        required:true,
+        minlength:10,
+        pwcheck:true,
+      }
+    },
+    messages:{
+      username:{
+        required:"username need to insert"
+      },
+      useremail:{
+        required:"useremail need to insert"
+      },
+      pwd:{
+        required:"pwd need to insert",
+        pwcheck:"Please enter one uppercase,one lowercase and one digit "
+      }
+    }
+  });
+  $.validator.addMethod("pwcheck", function(value) {
+     return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+         && /[a-z]/.test(value) // has a lowercase letter
+         && /\d/.test(value) // has a digit
+  });
+  jQuery.validator.addMethod("emailExt", function(value, element, param) {
+      return value.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$/);
+  },'Your E-mail is wrong');
+  </script>
+</html>

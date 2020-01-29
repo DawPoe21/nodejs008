@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>post list</title>
+    <style media="screen">
+      table,th,tr,td{border:1px solid red;}
+    </style>
+  </head>
+  <body>
+    <h1>Post List</h1>
+    <table>
+      <thead>
+        <th>title</th>
+        <th>content</th>
+        <th>author name</th>
+        <th>author email</th>
+        </thead>
+        <tbody>
+          <% for(var i =0; i < posts.length; i++){%>
+          <tr>
+            <td><a href="/Posts/postdetail/<%=posts[i]._id%>"><%= posts[i].title%></a></td>
+            <td><%= posts[i].content%></td>
+            <td><%= posts[i].author.name%></td>
+            <td><%= posts[i].author.email%></td>
+          </tr>
+        <%}%>
+        </tbody>
+    </table>
+  </body>
+</html>
